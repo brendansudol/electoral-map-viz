@@ -1,0 +1,36 @@
+/* utils */
+
+.sans-serif { font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica, helvetica neue, ubuntu, roboto, noto, segoe ui, arial, sans-serif; }
+.serif { font-family: georgia, times, serif; }
+.border-gray { border-color: #eee; }
+.black { color: #000; }
+
+/* viz */
+
+.container { max-width: 665px; }
+
+.foreground {
+  cursor: pointer;
+  pointer-events: all;
+}
+
+.state text {
+  font-size: 12px;
+  text-anchor: middle;
+  stroke: none;
+}
+
+.state .votes {
+  font-size: 10px;
+  text-anchor: end;
+}
+
+.choice {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  vertical-align: middle;
+}
+
+.dem { background-color: #009de3; }
+.gop { background-color: #ff5c37; }

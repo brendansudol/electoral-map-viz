@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Presidential Pick'em</title>
+    <link href='assets/css/basscss.min.css' rel='stylesheet'>
+    <link href='assets/css/app.css' rel='stylesheet'>
+  </head>
+  <body class='sans-serif'>
+    <div class='p1 mx-auto container'>
+      <div class='mb2 border-bottom border-gray'>
+        <h1 class='h2 m0'>Presidential Pick'em</h1>
+        <p class='h5 mt1 mb2'>
+          Click (and drag) the states to make your 2016 electoral map prediction.
+        </p>
+      </div>
+      <div class='mb2 clearfix'>
+        <div class='col col-5 left-align'>
+          <div class='mb h6 bold caps'>Clinton</div>
+          <img src='assets/img/dem.png' width='30'>
+          <span class='h1 bold total'>-</span>
+          <span class='h6 xs-hide need'>-</span>
+        </div>
+        <div class='col col-2 center mt2'>
+          <div class='h4 bold total'>-</div>
+          <div class='h6'>Tossup</div>
+        </div>
+        <div class='col col-5 right-align'>
+          <div class='mb h6 bold caps'>Trump</div>
+          <span class='h6 xs-hide need'>-</span>
+          <span class='h1 bold total'>-</span>
+          <img src='assets/img/gop.png' width='30'>
+        </div>
+      </div>
+      <div class='py2' id='viz'></div>
+      <form class='right-align'>
+        <label class='inline-block'>
+          <input type='radio' name='party' value='D' checked>
+          <span class='choice dem'></span>
+        </label>
+        <label class='inline-block'>
+          <input type='radio' name='party' value='R'>
+          <span class='choice gop'></span>
+        </label>
+      </form>
+      <div class='mt2 py2 border-top border-gray h5'>
+        <div class='right'>
+          Code on <a class='black bold' href='https://twitter.com/brensudol'>GitHub</a>
+        </div>
+        <div>Made by <a class='black bold' href='#'>@brensudol</a></div>
+      </div>
+    </div>
+    <script src='assets/js/d3.min.js'></script>
+    <script src='assets/js/viz.js'></script>
+  </body>
+</html>
