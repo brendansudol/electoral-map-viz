@@ -23,6 +23,8 @@ var svg = d3.select('#viz')
 var totals = d3.selectAll('.total'),
     need = d3.selectAll('.need');
 
+var tweet = d3.select('.tweet');
+
 d3.selectAll('input').on('change', function() { selectedParty = this.value; });
 
 d3.json('assets/data/data.json', function(error, data) {
@@ -95,6 +97,7 @@ d3.json('assets/data/data.json', function(error, data) {
       updateColors();
       updateTotals();
       updateUrl();
+      updateTweet();
     }
 
     function updateColors() {
@@ -106,11 +109,13 @@ d3.json('assets/data/data.json', function(error, data) {
 
     function updateTotals() {
       var agg = {D: 0, N: 0, R: 0};
+
       data.forEach(function(d) { agg[d.win || 'N'] += d.votes; });
       totals.data(d3.values(agg)).text(function(d) { return d; });
 
       var left = [270 - agg.D, 270 - agg.R],
           no_winner = left[0] > 0 && left[1] > 0;
+
       need.data(left).html(function(d) {
         return no_winner ? d + ' to win' : (d <= 0 ? check : '');
       });
@@ -120,7 +125,15 @@ d3.json('assets/data/data.json', function(error, data) {
       var picks = data.filter(function(d) { return d.win; }).map(function(d) {
         return d.id + '-' + d.win; 
       });
+
       top.history.replaceState(null, null, '#' + picks.join(','));
+    }
+
+    function updateTweet() {
+      var url = encodeURIComponent(top.location.href),
+          href = `https://twitter.com/intent/tweet?text=My%202016%20election%20forecast&url=${url}`;
+
+      tweet.attr('href', href);
     }
 });
 
