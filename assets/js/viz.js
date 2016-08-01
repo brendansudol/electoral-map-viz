@@ -12,6 +12,21 @@ var colors = {D: '#009de3', R: '#ff5c37'},
 
 var check = '<img class="px1" src="assets/img/check.png" width="16">';
 
+var scenarios = {
+  '2012': (
+    'AK-R,AL-R,AR-R,AZ-R,CA-D,CO-D,CT-D,DC-D,DE-D,FL-D,GA-R,HI-D,IA-D,ID-R,' +
+    'IL-D,IN-R,KS-R,KY-R,LA-R,MA-D,MD-D,ME-D,MI-D,MN-D,MO-R,MS-R,MT-R,NC-R,' +
+    'ND-R,NE-R,NH-D,NJ-D,NM-D,NV-D,NY-D,OH-D,OK-R,OR-D,PA-D,RI-D,SC-R,SD-R,' +
+    'TN-R,TX-R,UT-R,VA-D,VT-D,WA-D,WI-D,WV-R,WY-R'
+  ),
+  'sabato': (
+    'AK-R,AL-R,AR-R,AZ-R,CA-D,CO-D,CT-D,DC-D,DE-D,FL-D,GA-R,HI-D,IA-D,ID-R,' +
+    'IL-D,IN-R,KS-R,KY-R,LA-R,MA-D,MD-D,ME-D,MI-D,MN-D,MO-R,MS-R,MT-R,NC-D,' +
+    'ND-R,NE-R,NH-D,NJ-D,NM-D,NV-D,NY-D,OH-D,OK-R,OR-D,PA-D,RI-D,SC-R,SD-R,' +
+    'TN-R,TX-R,UT-R,VA-D,VT-D,WA-D,WI-D,WV-R,WY-R'
+  )
+};
+
 var svg = d3.select('#viz')
     .on('touchstart', nozoom)
     .on('touchmove', nozoom)
@@ -63,7 +78,13 @@ d3.json('assets/data/data.json', function(error, data) {
         .attr('y', cellSize - 5)
         .text(function(d) { return d.votes; });
 
-    init();
+    parseUrl();
+
+    d3.selectAll('.scenario').on('click', function() {
+      d3.event.preventDefault();
+      top.location.hash = scenarios[d3.select(this).attr('data-id')];
+      parseUrl();
+    });
 
     function dragStart() {
       var d = d3.event.sourceEvent.target.__data__;
@@ -82,12 +103,12 @@ d3.json('assets/data/data.json', function(error, data) {
       return true;
     }
 
-    function init() {
+    function parseUrl() {
       var picks = top.location.hash.slice(1).split(',');
       picks.forEach(function(d) {
         var info = d.split('-'), state = info[0], party = info[1];
         var i = stateIds.indexOf(state);
-        if (i > -1 && true) assign(data[i], party);
+        if (i > -1 && (party === 'D' || party === 'R')) assign(data[i], party);
       });
 
       update();
@@ -131,7 +152,7 @@ d3.json('assets/data/data.json', function(error, data) {
 
     function updateTweet() {
       var url = encodeURIComponent(top.location.href),
-          href = `https://twitter.com/intent/tweet?text=My%202016%20election%20forecast&url=${url}`;
+          href = `https://twitter.com/intent/tweet?text=My%202016%20election%20forecast%21&url=${url}`;
 
       tweet.attr('href', href);
     }
